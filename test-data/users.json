@@ -1,0 +1,33 @@
+{
+  "ui": {
+    "standardUser": {
+      "username": "standard_user",
+      "expectedUrlSubstring": "/inventory.html"
+    },
+    "lockedOutUser": {
+      "username": "locked_out_user",
+      "expectedError": "Epic sadface: Sorry, this user has been locked out."
+    },
+    "invalidUser": {
+      "username": "invalid_user",
+      "password": "wrong_password",
+      "expectedError": "Epic sadface: Username and password do not match any user in this service"
+    },
+    "emptyUsernameUser": {
+      "expectedError": "Epic sadface: Username is required"
+    }
+  },
+  "api": {
+    "samplePost": {
+      "title": "Senior QA Automation Architecture",
+      "body": "Demonstrating Playwright APIRequestContext with TypeScript",
+      "userId": 1
+    },
+    "sampleUser": {
+      "id": 1,
+      "name": "Leanne Graham",
+      "username": "Bret",
+      "email": "Sincere@april.biz"
+    }
+  }
+}

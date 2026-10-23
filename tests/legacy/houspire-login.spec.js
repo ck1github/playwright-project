@@ -1,0 +1,40 @@
+// tests/houspire-login.spec.js
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://houspire.ai/', { timeout: 60000 });
+  await page.getByRole('button', { name: 'Get Started', exact: true, timeout: 60000 }).click();
+  await page.getByRole('link', { name: 'Sign in', timeout: 60000 }).click();
+  await page.getByRole('textbox', { name: 'Email Address *' }).click();
+  await page.getByRole('textbox', { name: 'Email Address *' }).fill('ck@gohilinfotech.com');
+  await page.getByRole('textbox', { name: 'Email Address *' }).press('Tab');
+  await page.getByRole('textbox', { name: 'Password *' }).fill('Admin123');
+  await page.getByRole('button', { name: 'Sign In', timeout: 60000 }).click();
+  await page.getByText('Primary residents and family').click();
+  await page.getByRole('button', { name: 'Next', timeout: 60000 }).click();
+  await page.getByText('Entertaining Guests').click();
+  await page.getByRole('button', { name: 'Next', timeout: 60000 }).click();
+  await page.getByText('Hidden & Minimal').click();
+  await page.getByRole('button', { name: 'Next', timeout: 60000 }).click();
+  await page.getByText('Wood', { exact: true }).click();
+  await page.getByRole('button', { name: 'Next', timeout: 60000 }).click();
+  await page.getByText('Yes — Vastu Alignment (rooms').click();
+  await page.getByRole('button', { name: 'Next', timeout: 60000 }).click();
+  await page.getByText('Bright & Airy').click();
+  await page.getByRole('button', { name: 'Next', timeout: 60000 }).click();
+  await page.getByText('Timeless, Investment Pieces').click();
+  await page.getByRole('button', { name: 'Next', timeout: 60000 }).click();
+  await page.getByText('Home Office').click();
+  await page.getByRole('button', { name: 'Next', timeout: 60000 }).click();
+  await page.getByText('Low Maintenance (easy-clean').click();
+  await page.getByRole('button', { name: 'Next', timeout: 60000 }).click();
+  await page.getByText('Peace & Calm').click();
+  await page.getByRole('button', { name: 'Next', timeout: 60000 }).click();
+  await page.getByRole('button', { name: 'Complete', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Examples: Pet-friendly' }).click();
+  await page.getByRole('textbox', { name: 'Examples: Pet-friendly' }).fill('test');
+  await page.getByRole('button', { name: 'Complete', exact: true }).click();
+  await page.getByRole('button').filter({ hasText: /^$/ }).nth(3).click();
+  //await page.getByRole('button', { name: 'CR' }).click();
+  //await page.getByLabel('CR', { exact: true, timeout: 60000 }).getByText('Sign out').click();
+});

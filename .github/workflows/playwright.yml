@@ -1,0 +1,63 @@
+name: Playwright Tests CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Lint, Typecheck & Execute Playwright Suite
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Code Quality - ESLint Linting
+        run: npm run lint
+
+      - name: Code Quality - TypeScript Typecheck
+        run: npm run typecheck
+
+      - name: Install Playwright Chromium Browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Execute Playwright Test Suite
+        env:
+          CI: 'true'
+          HEADLESS: 'true'
+          BASE_URL: 'https://www.saucedemo.com'
+          API_BASE_URL: 'https://jsonplaceholder.typicode.com'
+          SAUCE_USERNAME: 'standard_user'
+          SAUCE_PASSWORD: 'secret_sauce'
+          SAUCE_LOCKED_USERNAME: 'locked_out_user'
+        run: npm run test:all
+
+      - name: Upload Playwright HTML Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-html-report
+          path: playwright-report/
+          retention-days: 14
+
+      - name: Upload Test Results & Failure Diagnostics
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-failure-artifacts
+          path: test-results/
+          retention-days: 7
